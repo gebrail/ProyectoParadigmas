@@ -6,17 +6,45 @@
         <servlet-name>ControllerPersonarol</servlet-name>
         <servlet-class>Controllers.ControllerPersonarol</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>controllerPersona</servlet-name>
+        <servlet-class>Controllers.controllerPersona</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>controllerTipodocumento</servlet-name>
+        <servlet-class>Controllers.controllerTipodocumento</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>controllerCuentas</servlet-name>
+        <servlet-class>Controllers.controllerCuentas</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ControllerPersonarol</servlet-name>
         <url-pattern>/ControllerPersonarol</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>controllerPersona</servlet-name>
+        <url-pattern>/controllerPersona</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>controllerTipodocumento</servlet-name>
+        <url-pattern>/controllerTipodocumento</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>controllerCuentas</servlet-name>
+        <url-pattern>/controllerCuentas</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
             30
         </session-timeout>
     </session-config>
+    <welcome-file-list>
+        <welcome-file>index.jsp</welcome-file>
+        <welcome-file>jsp/principal.jsp</welcome-file>
+    </welcome-file-list>
     <error-page>
         <error-code>404</error-code>
-        <location>/jsp/error404.jsp</location>
+        <location>/error404.jsp</location>
     </error-page>
 </web-app>

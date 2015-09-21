@@ -3,7 +3,7 @@ package VO;import java.sql.Date;
 
 public class personasVO {
  
-	private int id_persona;
+	private long id_persona;
 	private int id_documento;
 	private String primernombre_persona;
 	private String segundonombre_persona;
@@ -12,16 +12,16 @@ public class personasVO {
 	private String foto_persona;
 	private String genero_persona;
 	private String direccion_persona;
-	private int telefono_persona;
+	private long telefono_persona;
 	private String correo_persona;
 	private String estadocivil_persona;
 	private Date fechanacimiento_persona;
 
-	public int getid_persona() {
+	public long getid_persona() {
 		return this.id_persona;
 	}
 
-	public void setid_persona(int id_persona) {
+	public void setid_persona(long id_persona) {
 		this.id_persona=id_persona;
 	}
 
@@ -89,11 +89,11 @@ public class personasVO {
 		this.direccion_persona=direccion_persona;
 	}
 
-	public int gettelefono_persona() {
+	public long gettelefono_persona() {
 		return this.telefono_persona;
 	}
 
-	public void settelefono_persona(int telefono_persona) {
+	public void settelefono_persona(long telefono_persona) {
 		this.telefono_persona=telefono_persona;
 	}
 

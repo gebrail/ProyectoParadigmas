@@ -11,7 +11,22 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Principal</title>
         <%@include file="head.html"%>
+
+        <link href="http://vjs.zencdn.net/4.12/video-js.css" rel="stylesheet">
+        <script src="http://vjs.zencdn.net/4.12/video.js"></script>
         <!--es importante hacer el llamado al head ya que contiene la mayoria de las funciones del template-->
+        <style type="text/css">
+            .vjs-default-skin { color: #ffffff; }
+            .vjs-default-skin .vjs-play-progress,
+            .vjs-default-skin .vjs-volume-level { background-color: #de4a4a }
+            .vjs-default-skin .vjs-control-bar,
+            .vjs-default-skin .vjs-big-play-button { background: rgba(0,0,0,0.07) }
+            .vjs-default-skin .vjs-slider { background: rgba(0,0,0,0.023333333333333334) }
+        </style>
+        <link href="../assets/video-js/video-quality-selector.css" rel="stylesheet" type="text/css" />
+        <script src="../assets/video-js/video-quality-selector.js"  type="text/javascript" ></script>
+
+
     </head>
     <body>
         <%if (session.getAttribute("valido") == null) {
@@ -35,25 +50,30 @@
 
                 <section class="wrapper">
                     <div class="row">
-                        <div class="col-lg-12">
+                        <div class="col-lg-9 main-chart">
                             <div class="page-header">
                                 <h1>Bienvenido</h1>
                             </div>
                             <p class="lead">
-                                La siguiente aplicación se creo con el fin de facilitar, el prestamo de recursos de medios audiovisuales para la Universidad de Pamplona.
+                                La siguiente aplicación se creo con el fin de facilitar, el trabajo de los profesores a la hora de mostrar y agregar notas.
                                 Se espera que la interacción con la aplicación sea de su total agrado.
                             </p>
                             <center>
-                                <img src="../img/leon_up.png" class="img-responsive" alt="Universidad de Pamplona">
-
+                                <img src="../img/leon_up.png" >
                             </center>
 
 
-
-
-
-
                         </div>
+
+
+
+                        <%@include file="derecha.html"%>
+
+
+
+
+
+
                     </div>
 
 
@@ -93,7 +113,7 @@
                     // (string | mandatory) the heading of the notification
                     title: 'Bienvenido!',
                     // (string | mandatory) the text inside the notification
-                    text: 'En Esta Pagina Encontraras todo lo relacionado con la biblioteca',
+                    text: 'En Esta Pagina Encontraras todo lo relacionado con el colegio',
                     // (string | optional) the image to display on the left
                     image: '../assets/img/ui-sam.jpg',
                     // (bool | optional) if you want it to fade out on its own or just sit there

@@ -25,7 +25,7 @@
                     <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Toggle Navigation"></div>
                 </div>
                 <!--logo start-->
-                <a href="../jsp/Principal.jsp" class="logo"><b>Gestion de Colegio</b></a>
+                <a href="../jsp/principal.jsp" class="logo"><b>Gestion de Colegio</b></a>
                 <!--logo end-->
                 <div class="top-menu">
                     <ul class="nav pull-right top-menu">
@@ -73,9 +73,9 @@
                                         </div>
                                         <p><img src="../assets/img/ui-zac.jpg" class="img-circle" width="100"></p>
                                         <div class="row">
-                                            <a href="listar.jsp"    <button type="button" class="btn btn-theme">Listar</button> </a>
+                                            <a href="Listar.jsp"    <button type="button" class="btn btn-theme">Listar</button> </a>
 
-                                       </div>
+                                        </div>
                                     </div>
                                 </div><!-- /col-md-4 -->
 
@@ -87,12 +87,36 @@
                                         </div>
                                         <p><img src="../assets/img/modificar.png" class="img-circle" width="100"></p>
                                         <div class="row">
-                                            <a href="listar.jsp"    <button type="button" class="btn btn-theme">Modificar</button> </a>
+                                            <a href="Modificar.jsp"    <button type="button" class="btn btn-theme">Modificar</button> </a>
 
 
                                         </div>
                                     </div>
                                 </div><!-- /col-md-4 -->
+                            </div>
+                            <div class="row">
+
+                           
+                                    <div class="col-lg-4 col-md-4 col-sm-4 mb">
+                                        <!-- WHITE PANEL - TOP USER -->
+                                        <div class="white-panel pn">
+                                                
+                                            <div class="white-header">
+                                                <h5>Eliminar Persona</h5>
+                                            </div>
+                                            <center>
+                                                <p><img src="../assets/img/borrar.png" class="img-circle" width="100"></p></center>
+                                            <div class="row">
+                                                <a href="Eliminar.jsp"    <button type="button" class="btn btn-theme">Eliminar</button> </a>
+
+
+                                            </div>
+
+                                         
+                                        </div>
+                                    </div>
+
+
                             </div>
 
                         </div>

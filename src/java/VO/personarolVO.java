@@ -4,7 +4,7 @@ public class personarolVO {
  
 	private String username;
 	private String password;
-	private int id_persona;
+	private long id_persona;
 	private int id_rol;
 
 	public String getusername() {
@@ -23,11 +23,11 @@ public class personarolVO {
 		this.password=password;
 	}
 
-	public int getid_persona() {
+	public long getid_persona() {
 		return this.id_persona;
 	}
 
-	public void setid_persona(int id_persona) {
+	public void setid_persona(long id_persona) {
 		this.id_persona=id_persona;
 	}
 

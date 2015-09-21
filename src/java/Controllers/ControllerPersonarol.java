@@ -110,7 +110,7 @@ public class ControllerPersonarol extends HttpServlet {
             for (Object dato : datos) {
                 personasVO personsVO = new personasVO();
                 personsVO = (personasVO) dato;
-                nombrexd += " <h5 class=\"centered\">" + personsVO.getprimernombre_persona() + "  " + personsVO.getprimerapellido_persona()+ "</h5>";
+                nombrexd += " <h5 class=\"centered\">" + personsVO.getsegundonombre_persona() + "  " + personsVO.getprimerapellido_persona()+ "</h5>";
             }
 
         } else {
