@@ -2,15 +2,15 @@ package VO;
 
 public class materiaVO {
  
-	private int codigo_materia;
+	private long codigo_materia;
 	private String nombre_materia;
 	private String descripcion;
 
-	public int getcodigo_materia() {
+	public long getcodigo_materia() {
 		return this.codigo_materia;
 	}
 
-	public void setcodigo_materia(int codigo_materia) {
+	public void setcodigo_materia(long codigo_materia) {
 		this.codigo_materia=codigo_materia;
 	}
 

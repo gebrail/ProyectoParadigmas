@@ -7,6 +7,7 @@ package Controllers;
 
 import DAO.personasDAO;
 import VO.personasVO;
+import VO.tipodedocumentoVO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Date;
@@ -20,6 +21,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
 /**
  *
  * @author wilson
@@ -70,7 +72,7 @@ public class controllerPersona extends HttpServlet {
                     String correo = request.getParameter("correo");
                     String estadocivil = request.getParameter("estadocivil");
                     Date fechadenacimiento = Date.valueOf(request.getParameter("fechanacimiento"));
-                    response.sendRedirect("guest_persona/Registrar.jsp?confir=" + registrarPersona(idpersona, tipodocumento, primernombre, segundonombre, primerapellido, segundoapellido, genero, direccion, telefono, correo, estadocivil, fechadenacimiento));
+                    response.sendRedirect("Vortal/guest_persona/Registrar.jsp?confir=" + registrarPersona(idpersona, tipodocumento, primernombre, segundonombre, primerapellido, segundoapellido, genero, direccion, telefono, correo, estadocivil, fechadenacimiento));
 //                    
                     break;
                 case 3://aqui se consulta si se va eliminar o modificar
@@ -92,7 +94,6 @@ public class controllerPersona extends HttpServlet {
                     if (opcionmodificar == 2) {
                         personasVO rlVO = new personasVO();
                         rlVO = (personasVO) session.getAttribute("personaChange");
-                        rlVO.setid_persona(Long.parseLong(request.getParameter("idpersona")));
                         rlVO.setid_documento(Integer.parseInt(request.getParameter("iddocumento")));
                         rlVO.setprimernombre_persona(request.getParameter("primernombre"));
                         rlVO.setsegundonombre_persona(request.getParameter("segundonombre"));
@@ -106,10 +107,11 @@ public class controllerPersona extends HttpServlet {
                         rlVO.setfechanacimiento_persona(Date.valueOf(request.getParameter("fechan")));
                         boolean respuestaModificar = (boolean) personaAO.modificarPersona(rlVO);
                         if (respuestaModificar) {
+
                             session.removeAttribute("personaChange");
-                            response.sendRedirect("guest_persona/Modificar.jsp?confir=modificado");
+                            response.sendRedirect("Vortal/guest_persona/Modificar.jsp?confir=modificado");
                         } else {
-                            response.sendRedirect("guest_persona/Modificar.jsp?confir=error");
+                            response.sendRedirect("Vortal/guest_persona/Modificar.jsp?confir=error");
                         }
                     }
                     break;
@@ -119,15 +121,54 @@ public class controllerPersona extends HttpServlet {
                     boolean respuestaEliminar = eliminarPersona(elim);
                     if (respuestaEliminar) {
                         session.removeAttribute("consulta");
-                        response.sendRedirect("guest_persona/Eliminar.jsp?confir=eliminado");
+                        response.sendRedirect("Vortal/guest_persona/Eliminar.jsp?confir=eliminado");
                     } else {
-                        response.sendRedirect("guest_persona/Eliminar.jsp?confir=error");
+                        response.sendRedirect("Vortal/guest_persona/Eliminar.jsp?confir=error");
                     }
+                    break;
+
+                case 6://BUSCARPERSONASID
+                    out.println(documentos());
+                    break;
+                case 7://BUSCARdocuentos
+                    out.println(tipodocumentos());
                     break;
             }
         } finally {
             out.close();
         }
+    }
+
+    private String documentos() throws SQLException {
+        String opcion = "";
+        LinkedList datos = new LinkedList();
+        datos = personaAO.listardocumentos();
+        if (!datos.isEmpty()) {
+            personasVO tidoVO = new personasVO();
+            for (Object dato : datos) {
+                tidoVO = (personasVO) dato;
+                opcion += "<option value=\"" + tidoVO.getid_persona() + "\">" + tidoVO.getid_persona() + "</option>";
+            }
+        } else {
+            opcion += "<option>No hay Datos Error!</option>";
+        }
+        return opcion;
+    }
+
+    private String tipodocumentos() throws SQLException {
+        String opcion = "";
+        LinkedList datos = new LinkedList();
+        datos = personaAO.listartipodedocumentos();
+        if (!datos.isEmpty()) {
+            tipodedocumentoVO tidoVO = new tipodedocumentoVO();
+            for (Object dato : datos) {
+                tidoVO = (tipodedocumentoVO) dato;
+                opcion += "<option value=\"" + tidoVO.getid_documento() + "\">" + tidoVO.getnombre_documento() + "</option>";
+            }
+        } else {
+            opcion += "<option>No hay Datos Error!</option>";
+        }
+        return opcion;
     }
 
     private String listadopersonas() throws SQLException {
@@ -206,10 +247,16 @@ public class controllerPersona extends HttpServlet {
                 + "Identificador"
                 + "</th>"
                 + "<th>"
-                + "Nombre"
+                + "Primer Nombre"
                 + "</th>"
                 + "<th>"
-                + "Apellido"
+                + "Segundo Nombre"
+                + "</th>"
+                + "<th>"
+                + "Primer Apellido"
+                + "</th>"
+                + "<th>"
+                + "Segundo Apellido"
                 + "</th>"
                 + "</tr>"
                 + "</thead>"
@@ -227,8 +274,11 @@ public class controllerPersona extends HttpServlet {
                 }
                 consulta += "<td>" + rlVO.getid_persona() + "</td>"
                         + "<td>" + rlVO.getprimernombre_persona() + "</td>"
+                        + "<td>" + rlVO.getsegundonombre_persona() + "</td>"
                         + "<td>" + rlVO.getprimerapellido_persona() + "</td>"
+                        + "<td>" + rlVO.getsegundoapellido_persona() + "</td>"
                         + "</tr>";
+
             }
         } else {
             consulta += "<tr>"
@@ -253,17 +303,26 @@ public class controllerPersona extends HttpServlet {
                 + "<input type=\"hidden\" id=\"opmod\" name=\"opmod\" value=\"2\"/>"
                 + "<div class=\"form-group\">"
                 + "<label>ID Persona</label>"
-                + "<input type=\"text\" class=\"form-control\" id=\"idpersona\" name=\"idpersona\" placeholder=\"Digita el id nuevo\" value=\"" + rlVO.getid_persona() + "\" required>"
+                + "<input type=\"text\" class=\"form-control\" id=\"idpersona\" name=\"idpersona\" placeholder=\"Digita el id nuevo\" value=\"" + rlVO.getid_persona() + "\" disabled>"
                 + "</div>"
                 + "<div class=\"form-group\">"
                 + "<label>Tipo De Documento</label>"
-                + "<select class=\"form-control\" id=\"iddocumento\" name=\"iddocumento\">";
-        if (rlVO.getid_documento()==1) {
-            formulario += "<option value=\"1\" selected>Cedula de Ciudadania</option>";
-        } else {
-            formulario += "<option value=\"2\" selected>Tarjeta de Identidad </option>";
+                + " <select class=\"form-control\" name=\"iddocumento\" id=\"iddocumento\"> ";
+        LinkedList xd = new LinkedList();
+        xd = personaAO.listartipodedocumentos();
+        if (!xd.isEmpty()) {
+            tipodedocumentoVO persVO = new tipodedocumentoVO();
+            for (Object xd1 : xd) {
+                persVO = (tipodedocumentoVO) xd1;
+                if (persVO.getid_documento() == rlVO.getid_documento()) {
+                    formulario += "<option value=\"" + persVO.getid_documento() + "\" selected>" + persVO.getnombre_documento() + "</option>";
+                } else {
+                    formulario += "<option value=\"" + persVO.getid_documento() + "\">" + persVO.getnombre_documento() + "</option>";
+                }
+            }
         }
         formulario += "</select>"
+                + "</div>"
                 + "<div class=\"form-group\">"
                 + "<label>Primer Nombre</label>"
                 + "<input type=\"text\" class=\"form-control\" id=\"primernombre\" name=\"primernombre\" placeholder=\"Digita el o modifica el nombre\" value=\"" + rlVO.getprimernombre_persona() + "\" required>"
@@ -283,12 +342,20 @@ public class controllerPersona extends HttpServlet {
                 + "<div class=\"form-group\">"
                 + "<label>Genero</label>"
                 + "<select class=\"form-control\" id=\"genero\" name=\"genero\">";
+
         if (rlVO.getgenero_persona().equalsIgnoreCase("Masculino")) {
-            formulario += "<option value=\"Masculino\" selected>Maculino</option>";
+            formulario += "<option value=\"Masculino\" selected>Maculino</option>"
+                    + "<option value=\"Femenino\">Femenino</option>";
+        } else if (rlVO.getgenero_persona().equalsIgnoreCase("Femenino")) {
+            formulario += "<option value=\"Femenino\" selected>Femenino</option>"
+                    + "<option value=\"Masculino\">Masculino</option>";
         } else {
-            formulario += "<option value=\"Femenino\" selected>Femenimo</option>";
+            formulario += "<option value=\"Masculino\">Masculino</option>"
+                    + "<option value=\"Femenino\">Femenino</option>";
         }
+
         formulario += "</select>"
+                + "</div>"
                 + "<div class=\"form-group\">"
                 + "<label>Direccion</label>"
                 + "<input type=\"text\" class=\"form-control\" id=\"direccion\" name=\"direccion\" placeholder=\"Digita el o modifica la direccion\" value=\"" + rlVO.getdireccion_persona() + "\" required>"
@@ -304,12 +371,21 @@ public class controllerPersona extends HttpServlet {
                 + "<div class=\"form-group\">"
                 + "<label>Estado Civil</label>"
                 + "<select class=\"form-control\" id=\"estadocivil\" name=\"estadocivil\">";
+
         if (rlVO.getestadocivil_persona().equalsIgnoreCase("Casado")) {
-            formulario += "<option value=\"Soltero\" selected>Casado</option>";
+            formulario += "<option value=\"Casado\" selected>Casado</option>"
+                    + "<option value=\"Soltero\">Soltero</option>";
+        } else if (rlVO.getestadocivil_persona().equalsIgnoreCase("Soltero")) {
+            formulario += "<option value=\"Soltero\" selected>Soltero</option>"
+                    + "<option value=\"Casado\">Casado</option>";
         } else {
-            formulario += "<option value=\"Soltero\" selected>Soltero</option>";
+            formulario += "<option value=\"Soltero\">Soltero</option>"
+                    + "<option value=\"Casado\">Casado</option>";
         }
+
+
         formulario += "</select>"
+                + "</div>"
                 + "<div class=\"form-group\">"
                 + "<label>Fecha Nacimiento</label>"
                 + "<input type=\"date\" class=\"form-control\" id=\"fechan\" name=\"fechan\" placeholder=\"Digita el o modifica fecha\" value=\"" + rlVO.getfechanacimiento_persona() + "\" required>"

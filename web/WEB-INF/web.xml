@@ -15,8 +15,24 @@
         <servlet-class>Controllers.controllerTipodocumento</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>controllerCuentas</servlet-name>
-        <servlet-class>Controllers.controllerCuentas</servlet-class>
+        <servlet-name>controllerRol</servlet-name>
+        <servlet-class>Controllers.controllerRol</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>controllerCurso</servlet-name>
+        <servlet-class>Controllers.controllerCurso</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>controllerMateria</servlet-name>
+        <servlet-class>Controllers.controllerMateria</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>controllerFuncionalidad</servlet-name>
+        <servlet-class>Controllers.controllerFuncionalidad</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>controllerCursopersona</servlet-name>
+        <servlet-class>Controllers.controllerCursopersona</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>ControllerPersonarol</servlet-name>
@@ -31,8 +47,24 @@
         <url-pattern>/controllerTipodocumento</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>controllerCuentas</servlet-name>
-        <url-pattern>/controllerCuentas</url-pattern>
+        <servlet-name>controllerRol</servlet-name>
+        <url-pattern>/controllerRol</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>controllerCurso</servlet-name>
+        <url-pattern>/controllerCurso</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>controllerMateria</servlet-name>
+        <url-pattern>/controllerMateria</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>controllerFuncionalidad</servlet-name>
+        <url-pattern>/controllerFuncionalidad</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>controllerCursopersona</servlet-name>
+        <url-pattern>/controllerCursopersona</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
@@ -40,6 +72,7 @@
         </session-timeout>
     </session-config>
     <welcome-file-list>
+        <welcome-file>index.html</welcome-file>
         <welcome-file>index.jsp</welcome-file>
         <welcome-file>jsp/principal.jsp</welcome-file>
     </welcome-file-list>

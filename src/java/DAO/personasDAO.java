@@ -263,4 +263,61 @@ public class personasDAO {
             cn.cerrarStatement(update);
         }
     }
+    
+    
+    public LinkedList listardocumentos() {
+        conexionDB cn=null;
+        PreparedStatement select=null;
+        ResultSet rs=null;
+        LinkedList listaTipoDocumento = new LinkedList();
+        try {
+            cn=new conexionDB();
+            select = cn.getConnection().prepareStatement("SELECT id_persona FROM personas;");
+            rs = select.executeQuery();
+            while (rs.next()) {
+                personasVO perVO = new personasVO();
+                perVO.setid_persona(rs.getLong("id_persona"));
+                listaTipoDocumento.add(perVO);
+            }
+            return listaTipoDocumento;
+        } catch (SQLException ex) {
+            Logger.getLogger(personasDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return listaTipoDocumento;
+        } finally {
+            cn.desconectar();
+            cn.cerrarStatement(select);
+            cn.cerrarResultSet(rs);
+        }
+    }
+    
+    
+    
+    public LinkedList listartipodedocumentos() {
+        conexionDB cn=null;
+        PreparedStatement select=null;
+        ResultSet rs=null;
+        LinkedList listaTipoDocumento = new LinkedList();
+        try {
+            cn=new conexionDB();
+            select = cn.getConnection().prepareStatement("select * from tipodedocumento;");
+            rs = select.executeQuery();
+            while (rs.next()) {
+                tipodedocumentoVO tipodocVO = new tipodedocumentoVO();
+                tipodocVO.setid_documento(rs.getInt("id_documento"));
+                tipodocVO.setnombre_documento(rs.getString("nombre_documento"));
+                
+                listaTipoDocumento.add(tipodocVO);
+            }
+            return listaTipoDocumento;
+        } catch (SQLException ex) {
+            Logger.getLogger(personasDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return listaTipoDocumento;
+        } finally {
+            cn.desconectar();
+            cn.cerrarStatement(select);
+            cn.cerrarResultSet(rs);
+        }
+    }
 }
+
+
