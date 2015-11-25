@@ -2,15 +2,15 @@ package VO;
 
 public class tipodedocumentoVO {
  
-	private int id_documento;
+	private long id_documento;
 	private String nombre_documento;
 	private String descripcion_documento;
 
-	public int getid_documento() {
+	public long getid_documento() {
 		return this.id_documento;
 	}
 
-	public void setid_documento(int id_documento) {
+	public void setid_documento(long id_documento) {
 		this.id_documento=id_documento;
 	}
 

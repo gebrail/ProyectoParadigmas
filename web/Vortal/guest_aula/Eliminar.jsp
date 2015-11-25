@@ -1,7 +1,7 @@
 <%-- 
-    Document   : AsignarCurso
-    Created on : 16-nov-2015, 0:41:37
-    Author     : wilso
+    Document   : Eliminar
+    Created on : 19/09/2015, 12:55:15 PM
+    Author     : wilson
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -9,25 +9,17 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Asignar Curso Al Estudiante</title>
+        <meta name="author" content="Gebrail Hernandez">
+        <meta name="keywords" content="HTML5, CSS3, JSP, JAVAEE, JAVASCRIPT">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+        <title>Eliminar Aula</title>
+        <script type="text/javascript" src="../ajax/materias.js"></script>
+        <script type="text/javascript" src="../ajax/aula.js"></script>
+        <script type="text/javascript" src="../js/validaciones.js"></script>
         <%@include file="../jsp/head.html"%>
-        <script src="../js/validaciones.js"></script>   
-        <script type="text/javascript" src="../ajax/documentos.js"></script>
-        <script type="text/javascript" src="../ajax/cursos.js"></script>
-        <!--fin de las mks para los calendarios-->
-
-        <!--es importante hacer el llamado al head ya que contiene la mayoria de las funciones del template-->
-        <script>
-            function cargarAjax()
-            {
-                listado_documentos();//este metodo me sirve para traerme todos las ids de las personas
-                listadocursos();// este metodo me trae todos los roles creados en la base de datos
-            }
-        </script>
-
     </head>
-    <body onload="cargarAjax();">
-        <%            if (session.getAttribute("valido") == null) {
+    <body>
+        <%if (session.getAttribute("valido") == null) {
                 response.sendRedirect("../index.jsp?error=Unauthorized Access");
             }
         %>
@@ -50,45 +42,34 @@
                     <div class="row mt">
                         <div class="col-lg-12"> 
                             <div class="form-panel">
-                                <h4 class="mb"><i class="fa fa-angle-right"></i>Asignar Curso</h4>
+                                <h4 class="mb"><i class="fa fa-angle-right"></i> Eliminar Aula</h4>
 
-                                <form class="form-horizontal style-form" role="form" method="post" id="registroCursopersona" enctype="application/x-www-form-urlencoded" name="registroCursopersona">
-                                    <input type="hidden" id="opcion" name="opcion" value="1"/>          
-
-
+                                <!--aqui nombro el formulario como consultarpersona-->
+                                <form role="form" method="post" id="consultarAula" name="consultarAula">
+                                    <!--aqui digo que valla al controllerPersona con opcion 3 y dentro otra opcion con valor 1-->
+                                    <input type="hidden" id="opcion" name="opcion" value="3"/>
+                                    <input type="hidden" id="opcon" name="opcon" value="1"/>
                                     <div class="form-group">
-                                        <label class="col-sm-2 col-sm-2 control-label" >Documentos de las personas</label>
-                                        <div class="col-sm-10">
-                                            <select class="form-control" name="losdoc" id="losdoc">
-                                            </select>
-                                        </div>
-
+                                        <label>Nombre</label>
+                                        <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Digita el nombre del aula" required>
                                     </div>
-
-                                    <div class="form-group">
-                                        <label class="col-sm-2 col-sm-2 control-label">Cursos</label>
-
-                                        <div class="col-sm-10">
-                                            <select class="form-control" id="loscursos" name="loscursos">
-
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <!-- Load jQuery and bootstrap datepicker scripts -->
-                                    <script src="../calendario/js/jquery-1.9.1.min.js"></script>
-                                    <script src="../calendario/js/bootstrap-datepicker.js"></script>
-                                    <center> <button type="button" class="btn btn-primary btn-lg" onclick="validarAsignacionCurso();" >Asignar</button></center>
-
+                                    <button type="button" class="btn btn-success"onclick='aulaxdconsultado(document.getElementById("nombre").value, document.getElementById("opcion").value, document.getElementById("opcon").value);'>Consultar Registro</button>
                                 </form>
-                                <%if (String.valueOf(request.getParameter("confir")).equalsIgnoreCase("registrado")) {%>
+                                <div id="listado">
+                                </div>
+                                <%if ((String.valueOf(request.getParameter("confir")).equalsIgnoreCase("eliminado"))) {%>
                                 <script>
-                                    alert("La cuenta ha sido registrada");
+                                    alert("Eliminacion Realizada Correctamente", function () {
+                                        location.href = "principal.jsp";
+                                    });
                                 </script>
                                 <%
-                                } else if (String.valueOf(request.getParameter("confir")).equalsIgnoreCase("error")) {
+                                } else if ((String.valueOf(request.getParameter("confir")).equalsIgnoreCase("error"))) {
                                 %>
                                 <script>
-                                    alert("Hubo un error pailas mire aver que hizo mal");
+                                    alert("A Ocurrido un error, elemento no existente.", function () {
+                                        location.href = "principal.jsp";
+                                    });
                                 </script>
                                 <%
                                     }

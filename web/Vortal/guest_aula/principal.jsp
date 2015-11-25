@@ -9,7 +9,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Principal De Estudiantes</title>
+        <title>Gestion de aulas</title>
         <%@include file="../jsp/head.html"%>
     </head>
     <body>
@@ -21,6 +21,7 @@
 
             <!--header start-->
             <%@include file="../jsp/header.html"%>
+
             <!--header end-->
 
             <%@include file="../jsp/aside.html"%>  
@@ -31,7 +32,7 @@
             <section id="main-content"> 
 
                 <section class="wrapper site-min-height">
-                    <h3><i class="fa fa-angle-right"></i> Gestion De Estudiantes</h3>
+                    <h3><i class="fa fa-angle-right"></i> Gestion De aulas</h3>
                     <div class="row mt">
                         <div class="col-lg-12">
                             <div class="row">
@@ -40,28 +41,13 @@
                                     <!-- WHITE PANEL - TOP USER -->
                                     <div class="white-panel pn">
                                         <div class="white-header">
-                                            <h5>Asignar Curso al Estudiante</h5>
+                                            <h5>Registrar aula</h5>
                                         </div>
-                                        <p><img src="../assets/img/113-128.png" class="img-circle" width="100"></p>
+                                        <p><img src="../assets/img/24-128.png" class="img-circle" width="100"></p>
                                         <div class="row">
-                                            <a href="AsignarCurso.jsp"    <button type="button" class="btn btn-theme">Asignar Curso</button> </a>
+                                            <a href="Registrar.jsp"    <button type="button" class="btn btn-theme">Registrar</button> </a>
 
 
-
-                                        </div>
-                                    </div>
-                                </div><!-- /col-md-4 -->
-
-
-                                <div class="col-lg-4 col-md-4 col-sm-4 mb">
-                                    <!-- WHITE PANEL - TOP USER -->
-                                    <div class="white-panel pn">
-                                        <div class="white-header">
-                                            <h5>Ver Estudiantes Cuyos curso estan Matriculados</h5>
-                                        </div>
-                                        <p><img src="../assets/img/Street-View-128.png" class="img-circle" width="100"></p>
-                                        <div class="row">
-                                            <a href="Listar.jsp"    <button type="button" class="btn btn-theme">Ver</button> </a>
 
                                         </div>
                                     </div>
@@ -71,55 +57,55 @@
                                     <!-- WHITE PANEL - TOP USER -->
                                     <div class="white-panel pn">
                                         <div class="white-header">
-                                            <h5>Modificar Curso al Estudiante</h5>
+                                            <h5>Listar Aulas</h5>
                                         </div>
-                                        <p><img src="../assets/img/spanner-128.png" class="img-circle" width="100"></p>
+                                        <p><img src="../assets/img/Classroom-128.png" class="img-circle" width="100"></p>
                                         <div class="row">
-                                            <a href="Modificar.jsp"    <button type="button" class="btn btn-theme">Modificar Curso</button> </a>
+                                            <a href="Listar.jsp"    <button type="button" class="btn btn-theme">Listar</button> </a>
+
                                         </div>
                                     </div>
                                 </div><!-- /col-md-4 -->
 
+                                <div class="col-lg-4 col-md-4 col-sm-4 mb">
+                                    <!-- WHITE PANEL - TOP USER -->
+                                    <div class="white-panel pn">
+                                        <div class="white-header">
+                                            <h5>Modificar Aula</h5>
+                                        </div>
+                                        <p><img src="../assets/img/Formula-128.png" class="img-circle" width="100"></p>
+                                        <div class="row">
+                                            <a href="Modificar.jsp"    <button type="button" class="btn btn-theme">Modificar</button> </a>
 
 
-
-
-
+                                        </div>
+                                    </div>
+                                </div><!-- /col-md-4 -->
                             </div>
                             <div class="row">
 
+
                                 <div class="col-lg-4 col-md-4 col-sm-4 mb">
                                     <!-- WHITE PANEL - TOP USER -->
                                     <div class="white-panel pn">
 
                                         <div class="white-header">
-                                            <h5>Asignar Materias Estudiante</h5>
+                                            <h5>Eliminar Aula</h5>
                                         </div>
                                         <center>
-                                            <p><img src="../assets/img/14_-_Delete_user-128.png" class="img-circle" width="100"></p></center>
+                                            <p><img src="../assets/img/Folder_Minus-128.png" class="img-circle" width="100"></p></center>
                                         <div class="row">
-                                            <a href="#"    <button type="button" class="btn btn-theme">Asignar</button> </a>
+                                            <a href="Eliminar.jsp"    <button type="button" class="btn btn-theme">Eliminar</button> </a>
+
 
                                         </div>
-                                    </div>
-                                </div>
 
-                                <div class="col-lg-4 col-md-4 col-sm-4 mb">
-                                    <!-- WHITE PANEL - TOP USER -->
-                                    <div class="white-panel pn">
-                                        <div class="white-header">
-                                            <h5>Modificar Materias Asignadas al Estudiante</h5>
-                                        </div>
-                                        <p><img src="../assets/img/modif.png" class="img-circle" width="100"></p>
-                                        <div class="row">
-                                            <a href="#"    <button type="button" class="btn btn-theme">Modificar Materias</button> </a>
-                                        </div>
+
                                     </div>
                                 </div>
 
 
                             </div>
-
                         </div>
                     </div>
 

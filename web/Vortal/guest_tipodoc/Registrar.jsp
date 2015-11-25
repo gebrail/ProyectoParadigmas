@@ -1,7 +1,7 @@
 <%-- 
-    Document   : AsignarCurso
-    Created on : 16-nov-2015, 0:41:37
-    Author     : wilso
+    Document   : Modificar
+    Created on : 10/09/2015, 10:26:24 PM
+    Author     : wilson
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -9,25 +9,14 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Asignar Curso Al Estudiante</title>
+        <title>Registrar tipo de documentos</title>
+
+        <script src="../js/validaciones.js"></script>    
+
         <%@include file="../jsp/head.html"%>
-        <script src="../js/validaciones.js"></script>   
-        <script type="text/javascript" src="../ajax/documentos.js"></script>
-        <script type="text/javascript" src="../ajax/cursos.js"></script>
-        <!--fin de las mks para los calendarios-->
-
-        <!--es importante hacer el llamado al head ya que contiene la mayoria de las funciones del template-->
-        <script>
-            function cargarAjax()
-            {
-                listado_documentos();//este metodo me sirve para traerme todos las ids de las personas
-                listadocursos();// este metodo me trae todos los roles creados en la base de datos
-            }
-        </script>
-
     </head>
-    <body onload="cargarAjax();">
-        <%            if (session.getAttribute("valido") == null) {
+    <body>
+        <%if (session.getAttribute("valido") == null) {
                 response.sendRedirect("../index.jsp?error=Unauthorized Access");
             }
         %>
@@ -50,45 +39,37 @@
                     <div class="row mt">
                         <div class="col-lg-12"> 
                             <div class="form-panel">
-                                <h4 class="mb"><i class="fa fa-angle-right"></i>Asignar Curso</h4>
+                                <h4 class="mb"><i class="fa fa-angle-right"></i> Registrar Tipo de Documento </h4>
 
-                                <form class="form-horizontal style-form" role="form" method="post" id="registroCursopersona" enctype="application/x-www-form-urlencoded" name="registroCursopersona">
-                                    <input type="hidden" id="opcion" name="opcion" value="1"/>          
-
-
+                                <form role="form" method="post" id="registroTipoDocumento" enctype="application/x-www-form-urlencoded" name="registroTipoDocumento">
+                                    <input type="hidden" id="opcion" name="opcion" value="1"/>
                                     <div class="form-group">
-                                        <label class="col-sm-2 col-sm-2 control-label" >Documentos de las personas</label>
-                                        <div class="col-sm-10">
-                                            <select class="form-control" name="losdoc" id="losdoc">
-                                            </select>
-                                        </div>
-
+                                        <label>Id Del tipo de documento</label>
+                                        <input type="text" class="form-control" id="idtipodoc" name="idtipodoc" placeholder="Digita el id del Tipo de Documento" required>
                                     </div>
-
                                     <div class="form-group">
-                                        <label class="col-sm-2 col-sm-2 control-label">Cursos</label>
-
-                                        <div class="col-sm-10">
-                                            <select class="form-control" id="loscursos" name="loscursos">
-
-                                            </select>
-                                        </div>
+                                        <label>Nombre</label>
+                                        <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Digita el Nombre Tipo de Documento" required>
                                     </div>
-                                    <!-- Load jQuery and bootstrap datepicker scripts -->
-                                    <script src="../calendario/js/jquery-1.9.1.min.js"></script>
-                                    <script src="../calendario/js/bootstrap-datepicker.js"></script>
-                                    <center> <button type="button" class="btn btn-primary btn-lg" onclick="validarAsignacionCurso();" >Asignar</button></center>
-
+                                    <div class="form-group">
+                                        <label>Desripción</label>
+                                        <textarea class="form-control" rows="4" id="descripcion" name="descripcion" placeholder="Digita la descripcion del Tipo de Documento" required></textarea>
+                                    </div>
+                                    <button type="button" class="btn btn-success" onclick='validarRegistroTido(document.getElementById("idtipodoc").value, document.getElementById("nombre").value, document.getElementById("descripcion").value);'>Registrar</button>
                                 </form>
                                 <%if (String.valueOf(request.getParameter("confir")).equalsIgnoreCase("registrado")) {%>
                                 <script>
-                                    alert("La cuenta ha sido registrada");
+                                    alert("Registro del Tipo de Documento realizado correctamente.", function () {
+                                        location.href = "principal.jsp";
+                                    });
                                 </script>
                                 <%
                                 } else if (String.valueOf(request.getParameter("confir")).equalsIgnoreCase("error")) {
                                 %>
                                 <script>
-                                    alert("Hubo un error pailas mire aver que hizo mal");
+                                    .alert("A ocurrido un error, comprueba los datos.", function () {
+                                        location.href = "registrar.jsp";
+                                    });
                                 </script>
                                 <%
                                     }
@@ -96,6 +77,7 @@
                             </div>
                         </div>
                     </div>
+
                     <!-- /content-panel -->
                     <!-- /col-lg-4 -->			
                     <!-- /row -->

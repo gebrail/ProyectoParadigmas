@@ -34,6 +34,14 @@
         <servlet-name>controllerCursopersona</servlet-name>
         <servlet-class>Controllers.controllerCursopersona</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>controllerAula</servlet-name>
+        <servlet-class>Controllers.controllerAula</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>controllerTipoaula</servlet-name>
+        <servlet-class>Controllers.controllerTipoaula</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ControllerPersonarol</servlet-name>
         <url-pattern>/ControllerPersonarol</url-pattern>
@@ -65,6 +73,14 @@
     <servlet-mapping>
         <servlet-name>controllerCursopersona</servlet-name>
         <url-pattern>/controllerCursopersona</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>controllerAula</servlet-name>
+        <url-pattern>/controllerAula</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>controllerTipoaula</servlet-name>
+        <url-pattern>/controllerTipoaula</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

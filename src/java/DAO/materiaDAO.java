@@ -6,6 +6,7 @@
 package DAO;
 
 import Conexion.conexionDB;
+import VO.cursoVO;
 import VO.materiaVO;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -22,6 +23,33 @@ public class materiaDAO {
 
     public materiaDAO() {
 
+    }
+
+    public LinkedList listarcurso() {
+        conexionDB cn = null;
+        PreparedStatement select = null;
+        ResultSet rs = null;
+        LinkedList listaroles = new LinkedList();
+        try {
+            cn = new conexionDB();
+            select = cn.getConnection().prepareStatement("select * from curso;");
+            rs = select.executeQuery();
+            while (rs.next()) {
+                cursoVO cursosVO = new cursoVO();
+                cursosVO.setid_curso(rs.getInt("id_curso"));
+                cursosVO.setnombre_curso(rs.getString("nombre_curso"));
+                cursosVO.setdescripcion_curso(rs.getString("descripcion_curso"));
+                listaroles.add(cursosVO);
+            }
+            return listaroles;
+        } catch (SQLException ex) {
+            Logger.getLogger(materiaDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return listaroles;
+        } finally {
+            cn.desconectar();
+            cn.cerrarStatement(select);
+            cn.cerrarResultSet(rs);
+        }
     }
 
     public boolean registrarMateria(long idmateria, String nobmremateria, String descripcion) {

@@ -16,7 +16,9 @@
         <link href="assets/css/style-responsive.css" rel="stylesheet">
         <script type="text/javascript" src="js/validaciones.js"></script>
         <link rel="shortcut icon" href="img/favicon.png" /> 
-             
+        <link href="assets/video-js/video-js.css" rel="stylesheet" type="text/css">
+        <script src="assets/video-js/video.js"></script>
+
     </head>
     <body>
 
@@ -47,17 +49,27 @@
         </div>
         <script src="assets/js/jquery.js"></script>
         <script src="assets/js/bootstrap.min.js"></script>
+    <center>
+        <video id="example_video_1" class="video-js vjs-default-skin" controls preload="none" width="600" height="400"
+               poster="img/micu01-425376.jpeg"
+               data-setup="{}">
+            <source src="img/y.mp4" type='video/mp4' />
 
-        <!--BACKSTRETCH-->
-        <!-- You can use an image of whatever size. This script will stretch to fit in any screen size.-->
+            <track kind="captions" src="demo.captions.vtt" srclang="en" label="English"></track><!-- Tracks need an ending tag thanks to IE9 -->
+            <track kind="subtitles" src="demo.captions.vtt" srclang="en" label="English"></track><!-- Tracks need an ending tag thanks to IE9 -->
+            <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p>
+        </video>
+    </center>
+    <!--BACKSTRETCH-->
+    <!-- You can use an image of whatever size. This script will stretch to fit in any screen size.-->
 
-        <!-- aqui viene la imagen de fondo haciendo un llamado a una funcion de javascript del template de boostrap :D sapbeee-->
+    <!-- aqui viene la imagen de fondo haciendo un llamado a una funcion de javascript del template de boostrap :D sapbeee-->
 
-        <script type="text/javascript" src="assets/js/jquery.backstretch.min.js"></script>
-        <script>
-                            $.backstretch("img/438764.png", {speed: 500});
-        </script>
+    <script type="text/javascript" src="assets/js/jquery.backstretch.min.js"></script>
+    <script>
+                        $.backstretch("img/438764.png", {speed: 500});
+    </script>
 
 
-    </body>
+</body>
 </html>

@@ -1,7 +1,7 @@
 <%-- 
-    Document   : AsignarCurso
-    Created on : 16-nov-2015, 0:41:37
-    Author     : wilso
+    Document   : Registrar
+    Created on : 10/09/2015, 10:26:33 PM
+    Author     : wilson
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -9,24 +9,22 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Asignar Curso Al Estudiante</title>
+        <title>Registrar Aula</title>
         <%@include file="../jsp/head.html"%>
-        <script src="../js/validaciones.js"></script>   
-        <script type="text/javascript" src="../ajax/documentos.js"></script>
-        <script type="text/javascript" src="../ajax/cursos.js"></script>
-        <!--fin de las mks para los calendarios-->
-
-        <!--es importante hacer el llamado al head ya que contiene la mayoria de las funciones del template-->
-        <script>
-            function cargarAjax()
-            {
-                listado_documentos();//este metodo me sirve para traerme todos las ids de las personas
-                listadocursos();// este metodo me trae todos los roles creados en la base de datos
-            }
-        </script>
+        <script src="../js/validaciones.js"></script>  
+        <script type="text/javascript" src="../ajax/aula.js"></script>
 
     </head>
-    <body onload="cargarAjax();">
+
+
+    <script>
+        function cargarMetodo()
+        {
+            lostiposdeaulaxd();//este metodo me sirve para traerme los tipos de documentos en la base de datos
+        }
+    </script>
+
+    <body onload="cargarMetodo();">
         <%            if (session.getAttribute("valido") == null) {
                 response.sendRedirect("../index.jsp?error=Unauthorized Access");
             }
@@ -50,39 +48,38 @@
                     <div class="row mt">
                         <div class="col-lg-12"> 
                             <div class="form-panel">
-                                <h4 class="mb"><i class="fa fa-angle-right"></i>Asignar Curso</h4>
+                                <h4 class="mb"><i class="fa fa-angle-right"></i> Registar Aula</h4>
 
-                                <form class="form-horizontal style-form" role="form" method="post" id="registroCursopersona" enctype="application/x-www-form-urlencoded" name="registroCursopersona">
+                                <form class="form-horizontal style-form" role="form" method="post" id="registroAula" enctype="application/x-www-form-urlencoded" name="registroAula">
                                     <input type="hidden" id="opcion" name="opcion" value="1"/>          
 
-
                                     <div class="form-group">
-                                        <label class="col-sm-2 col-sm-2 control-label" >Documentos de las personas</label>
+                                        <label class="col-sm-2 col-sm-2 control-label">Id del Aula</label>
                                         <div class="col-sm-10">
-                                            <select class="form-control" name="losdoc" id="losdoc">
+                                            <input type="text" class="form-control" id="idaula" name="idaula" >
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 col-sm-2 control-label">nombre del aula</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" id="nombreaula" name="nombreaula">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+
+                                        <label class="col-sm-2 col-sm-2 control-label" >Tipo de Aula</label>
+                                        <div class="col-sm-10">
+                                            <select class="form-control" name="tipoaula" id="tipoaula">
                                             </select>
                                         </div>
 
                                     </div>
 
-                                    <div class="form-group">
-                                        <label class="col-sm-2 col-sm-2 control-label">Cursos</label>
-
-                                        <div class="col-sm-10">
-                                            <select class="form-control" id="loscursos" name="loscursos">
-
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <!-- Load jQuery and bootstrap datepicker scripts -->
-                                    <script src="../calendario/js/jquery-1.9.1.min.js"></script>
-                                    <script src="../calendario/js/bootstrap-datepicker.js"></script>
-                                    <center> <button type="button" class="btn btn-primary btn-lg" onclick="validarAsignacionCurso();" >Asignar</button></center>
-
+                                    <center> <button type="button" class="btn btn-primary btn-lg" onclick="validarRegistroSalon()" >Registrar</button></center>
                                 </form>
                                 <%if (String.valueOf(request.getParameter("confir")).equalsIgnoreCase("registrado")) {%>
                                 <script>
-                                    alert("La cuenta ha sido registrada");
+                                    alert("El aula o pinche Salon ha sido registrada");
                                 </script>
                                 <%
                                 } else if (String.valueOf(request.getParameter("confir")).equalsIgnoreCase("error")) {
