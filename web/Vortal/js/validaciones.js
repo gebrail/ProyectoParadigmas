@@ -368,8 +368,8 @@ function validarAsignacionCurso() {
 
 
 
-function validarRegistroTido(idtipodoc,nombre, descripcion) {
-    if (!validarTextoVacio(idtipodoc) ||!validarTextoVacio(nombre) || !validarTextoVacio(descripcion) || !validaSoloTexto(nombre) || !validaSoloTexto(descripcion) || !validaTextoNumeros(idtipodoc)) {
+function validarRegistroTido(idtipodoc, nombre, descripcion) {
+    if (!validarTextoVacio(idtipodoc) || !validarTextoVacio(nombre) || !validarTextoVacio(descripcion) || !validaSoloTexto(nombre) || !validaSoloTexto(descripcion) || !validaTextoNumeros(idtipodoc)) {
         alert("Campos No Validos, verifique campos vacios y caracteres especiales.");
     }
     else {
@@ -392,8 +392,8 @@ function confirmarEliminarTido() {
 
 
 
-function validarRegistroAula(idtipoaula,nombre, descripcion) {
-    if (!validarTextoVacio(idtipoaula) ||!validarTextoVacio(nombre) || !validarTextoVacio(descripcion) || !validaSoloTexto(nombre) || !validaSoloTexto(descripcion) || !validaTextoNumeros(idtipoaula)) {
+function validarRegistroAula(idtipoaula, nombre, descripcion) {
+    if (!validarTextoVacio(idtipoaula) || !validarTextoVacio(nombre) || !validarTextoVacio(descripcion) || !validaSoloTexto(nombre) || !validaSoloTexto(descripcion) || !validaTextoNumeros(idtipoaula)) {
         alert("Campos No Validos, verifique campos vacios y caracteres especiales.");
     }
     else {
@@ -471,4 +471,169 @@ function confirmarEliminarSalon() {
         adm.action = "/Schooldays/controllerAula";
         adm.submit();
     }
+}
+
+
+
+function validarRegistroGrupo() {
+    var idgrupo = document.getElementById("idgrupo").value;
+    var nombregrupo = document.getElementById("nombregrupo").value;
+
+    var ladescripcion = document.getElementById("ladescripcionxd").value;
+
+    if (!validarTextoVacio(idgrupo) || !validarTextoVacio(nombregrupo) || !validarTextoVacio(ladescripcion)) {
+        alert("Por favor verifique que no hallan campos vacios");
+    }
+    else {
+        var adm = document.getElementById("registroGrupo");
+        adm.action = "/Schooldays/controllerGrupo";
+        adm.submit();
+    }
+}
+
+
+
+
+function SeleccionGrupoModificar()
+{
+    var marcado = validarRadio("idgrupo");
+    if (!marcado) {
+        alert("Debe Seleccionar Alguno de la lista.");
+    }
+    else {
+        var btn = document.getElementById("btnVisualizar");
+        btn.setAttribute("data-toggle", "modal");
+        btn.setAttribute("data-target", "#modificar");
+    }
+}
+
+
+function confirmarModificarGrupo(nombregrupo, descripciongr) {
+
+    if (!validarTextoVacio(nombregrupo) || !validarTextoVacio(descripciongr)) {
+        alert("Campos No Validos, verifique campos vacios o caracteres especiales.");
+    }
+    else {
+        var adm = document.getElementById("grupoModificar");
+        adm.action = "/Schooldays/controllerGrupo";
+        adm.submit();
+
+    }
+}
+
+
+function confirmarEliminarGrupo() {
+    var marcado = validarRadio("eliminar");
+    if (!marcado) {
+        alert("Debe Seleccionar Alguno de la lista.");
+    }
+    else {
+        var adm = document.getElementById("eliminarGrupo");
+        adm.action = "/Schooldays/controllerGrupo";
+        adm.submit();
+    }
+
+}
+
+
+
+
+function confirmarAsignacionGrupo() {
+
+    var adm = document.getElementById("registroCursopersona");
+    adm.action = "/Schooldays/controllerEstudiante";
+    adm.submit();
+
+
+}
+
+
+
+function SeleccionMateriagrupoModificar()
+{
+    var marcado = validarRadio("grupito");
+    if (!marcado) {
+        alert("Debe Seleccionar Alguno de la lista.");
+    }
+    else {
+        var btn = document.getElementById("btnVisualizar");
+        btn.setAttribute("data-toggle", "modal");
+        btn.setAttribute("data-target", "#modificar");
+    }
+}
+
+
+
+function confirmarModificarAsignacion(idgru, grupito) {
+
+    var adm = document.getElementById("materiagrModificar", "grupito");
+    adm.action = "/Schooldays/controllerEstudiante";
+    adm.submit();
+
+
+}
+
+
+
+function SeleccionNotas()
+{
+    var marcado = validarRadio("grupito");
+    if (!marcado) {
+        alert("Debe Seleccionar Alguno de la lista.");
+    }
+    else {
+        var btn = document.getElementById("btnVisualizar");
+        btn.setAttribute("data-toggle", "modal");
+        btn.setAttribute("data-target", "#modificar");
+    }
+}
+
+
+
+function confirmarModificarNotas(notaa, notab, notac) {
+
+    if (!validarTextoVacio(notaa) || !validarTextoVacio(notab) || !validarTextoVacio(notac)) {
+        alert("Campos No Validos, verifique campos vacios o caracteres especiales.");
+    }
+    else {
+        var adm = document.getElementById("notasInsertar");
+        adm.action = "/Schooldays/controllerEstudiante";
+        adm.submit();
+
+    }
+}
+
+
+function Selecciongrupovernota()
+{
+    var marcado = validarRadio("grupito");
+    if (!marcado) {
+        alert("Debe Seleccionar Alguno de la lista.");
+    }
+    else {
+        var btn = document.getElementById("btnVisualizar");
+        btn.setAttribute("data-toggle", "modal");
+        btn.setAttribute("data-target", "#modificar");
+    }
+}
+
+
+
+function matgrVer(idgrxd,idpersxd, opcion, opmod)
+{
+    var conexion;
+    if (window.XMLHttpRequest) {
+        conexion = new XMLHttpRequest();
+    } else {
+        conexion = new ActiveXObject("Microsoft.XMLHTTP");
+    }
+    conexion.onreadystatechange = function() {
+        if (conexion.readyState == 4 && conexion.status == 200) {
+            document.getElementById("modificarForm").innerHTML = conexion.responseText;
+        }
+    }
+    conexion.open("POST", "/Schooldays/controllerEstudiante", true);
+    conexion.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    conexion.send("&idgrxd=" + idgrxd + "&idpersxd=" + idpersxd + "&opmod=" + opmod + "&opcion=" + opcion);
+    
 }

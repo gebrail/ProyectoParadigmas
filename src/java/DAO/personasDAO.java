@@ -3,6 +3,10 @@ package DAO;
 import Conexion.conexionDB;
 import VO.personasVO;
 import VO.tipodedocumentoVO;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -43,7 +47,7 @@ public class personasDAO {
                 personVO.setsegundonombre_persona(rs.getString("segundonombre_persona"));
                 personVO.setprimerapellido_persona(rs.getString("primerapellido_persona"));
                 personVO.setsegundoapellido_persona(rs.getString("segundoapellido_persona"));
-                personVO.setfoto_persona(rs.getString("foto_persona"));
+                //               personVO.setfoto_persona(rs.getString("foto_persona"));
                 personVO.setgenero_persona(rs.getString("genero_persona"));
                 personVO.setdireccion_persona(rs.getString("direccion_persona"));
                 personVO.settelefono_persona(rs.getLong("telefono_persona"));
@@ -63,6 +67,57 @@ public class personasDAO {
         }
     }
 
+//    public boolean registrarPersona(long idpersona, int tipodocumento, String primernombre, String segundonombre, String primerapellido, String segundoapellido, InputStream inputStream, String genero, String direccion, long telefono, String correo, String estadocivil, Date fechanacimiento) {
+//        conexionDB cn = null;
+//        PreparedStatement insert = null;
+//        try {
+//            cn = new conexionDB();
+//            boolean registro = false;
+//            insert = cn.getConnection().prepareStatement("INSERT INTO personas(\n"
+//                    + "            id_persona, id_documento, primernombre_persona, segundonombre_persona, \n"
+//                    + "            primerapellido_persona, segundoapellido_persona, foto_persona, \n"
+//                    + "            genero_persona, direccion_persona, telefono_persona, correo_persona, \n"
+//                    + "            estadocivil_persona, fechanacimiento_persona)\n"
+//                    + "    VALUES (?, ?, ?, ?, \n"
+//                    + "            ?, ?, ?, \n"
+//                    + "            ?, ?, ?, ?, \n"
+//                    + "            ?, ?);");
+//
+//            insert.setLong(1, idpersona);
+//            insert.setInt(2, tipodocumento);
+//            insert.setString(3, primernombre);
+//            insert.setString(4, segundonombre);
+//            insert.setString(5, primerapellido);
+//            insert.setString(6, segundoapellido);
+//            //Parametros de la imagen
+//            JOptionPane.showMessageDialog(null, inputStream);
+//            if (inputStream != null) {
+//                // fetches input stream of the upload file for the blob column
+//                insert.setBlob(7, inputStream);
+//            }
+//
+//            insert.setString(8, genero);
+//            insert.setString(9, direccion);
+//            insert.setLong(10, telefono);
+//            insert.setString(11, correo);
+//            insert.setString(12, estadocivil);
+//            insert.setDate(13, fechanacimiento);
+//
+//            int r = insert.executeUpdate();
+//            if (r != 0) {
+//                registro = true;
+//            } else {
+//                registro = false;
+//            }
+//            return registro;
+//        } catch (SQLException ex) {
+//            Logger.getLogger(personasDAO.class.getName()).log(Level.SEVERE, null, ex);
+//            return false;
+//        } finally {
+//            cn.desconectar();
+//            cn.cerrarStatement(insert);
+//        }
+//    }
     public boolean registrarPersona(long idpersona, int tipodocumento, String primernombre, String segundonombre, String primerapellido, String segundoapellido, String genero, String direccion, long telefono, String correo, String estadocivil, Date fechanacimiento) {
         conexionDB cn = null;
         PreparedStatement insert = null;
@@ -145,7 +200,7 @@ public class personasDAO {
                 personVO.setsegundonombre_persona(rs.getString("segundonombre_persona"));
                 personVO.setprimerapellido_persona(rs.getString("primerapellido_persona"));
                 personVO.setsegundoapellido_persona(rs.getString("segundoapellido_persona"));
-                personVO.setfoto_persona(rs.getString("foto_persona"));
+//                personVO.setfoto_persona(rs.getString("foto_persona"));
                 personVO.setgenero_persona(rs.getString("genero_persona"));
                 personVO.setdireccion_persona(rs.getString("direccion_persona"));
                 personVO.settelefono_persona(rs.getLong("telefono_persona"));
@@ -183,7 +238,7 @@ public class personasDAO {
                 personVO.setsegundonombre_persona(rs.getString("segundonombre_persona"));
                 personVO.setprimerapellido_persona(rs.getString("primerapellido_persona"));
                 personVO.setsegundoapellido_persona(rs.getString("segundoapellido_persona"));
-                personVO.setfoto_persona(rs.getString("foto_persona"));
+//                personVO.setfoto_persona(rs.getString("foto_persona"));
                 personVO.setgenero_persona(rs.getString("genero_persona"));
                 personVO.setdireccion_persona(rs.getString("direccion_persona"));
                 personVO.settelefono_persona(rs.getLong("telefono_persona"));
@@ -263,15 +318,14 @@ public class personasDAO {
             cn.cerrarStatement(update);
         }
     }
-    
-    
+
     public LinkedList listardocumentos() {
-        conexionDB cn=null;
-        PreparedStatement select=null;
-        ResultSet rs=null;
+        conexionDB cn = null;
+        PreparedStatement select = null;
+        ResultSet rs = null;
         LinkedList listaTipoDocumento = new LinkedList();
         try {
-            cn=new conexionDB();
+            cn = new conexionDB();
             select = cn.getConnection().prepareStatement("SELECT id_persona FROM personas;");
             rs = select.executeQuery();
             while (rs.next()) {
@@ -289,23 +343,21 @@ public class personasDAO {
             cn.cerrarResultSet(rs);
         }
     }
-    
-    
-    
+
     public LinkedList listartipodedocumentos() {
-        conexionDB cn=null;
-        PreparedStatement select=null;
-        ResultSet rs=null;
+        conexionDB cn = null;
+        PreparedStatement select = null;
+        ResultSet rs = null;
         LinkedList listaTipoDocumento = new LinkedList();
         try {
-            cn=new conexionDB();
+            cn = new conexionDB();
             select = cn.getConnection().prepareStatement("select * from tipodedocumento;");
             rs = select.executeQuery();
             while (rs.next()) {
                 tipodedocumentoVO tipodocVO = new tipodedocumentoVO();
                 tipodocVO.setid_documento(rs.getInt("id_documento"));
                 tipodocVO.setnombre_documento(rs.getString("nombre_documento"));
-                
+
                 listaTipoDocumento.add(tipodocVO);
             }
             return listaTipoDocumento;
@@ -318,6 +370,39 @@ public class personasDAO {
             cn.cerrarResultSet(rs);
         }
     }
+
+    public LinkedList listardocumentosestudiantes() {
+        conexionDB cn = null;
+        PreparedStatement select = null;
+        ResultSet rs = null;
+        LinkedList listaTipoDocumento = new LinkedList();
+        try {
+            cn = new conexionDB();
+            select = cn.getConnection().prepareStatement("SELECT \n"
+                    + "  personas.id_persona\n"
+                    + "FROM \n"
+                    + "  public.personas, \n"
+                    + "  public.personarol, \n"
+                    + "  public.rol\n"
+                    + "WHERE \n"
+                    + "  personas.id_persona = personarol.id_persona AND\n"
+                    + "  personarol.id_rol = rol.id_rol AND\n"
+                    + "  rol.nombre_rol='Estudiante';");
+            rs = select.executeQuery();
+            while (rs.next()) {
+                personasVO perVO = new personasVO();
+                perVO.setid_persona(rs.getLong("id_persona"));
+                listaTipoDocumento.add(perVO);
+            }
+            return listaTipoDocumento;
+        } catch (SQLException ex) {
+            Logger.getLogger(personasDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return listaTipoDocumento;
+        } finally {
+            cn.desconectar();
+            cn.cerrarStatement(select);
+            cn.cerrarResultSet(rs);
+        }
+    }
+
 }
-
-

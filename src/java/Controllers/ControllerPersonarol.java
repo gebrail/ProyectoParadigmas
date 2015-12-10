@@ -4,10 +4,13 @@ import DAO.personarolDAO;
 import DAO.personasDAO;
 import DAO.rolDAO;
 import VO.Cuentas;
+import VO.admine;
 import VO.funcionalidadVO;
 import VO.personarolVO;
 import VO.personasVO;
+import VO.profesores;
 import VO.rolVO;
+import java.awt.Image;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -15,10 +18,16 @@ import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
+import sun.misc.BASE64Decoder;
+import sun.net.www.content.image.png;
 
 /**
  *
@@ -60,6 +69,12 @@ public class ControllerPersonarol extends HttpServlet {
                     } else {
                         session.setAttribute("menu", menu(personaO));
                         session.setAttribute("personaxd", nombredelapersona(personaO));
+//                        BASE64Decoder d = new BASE64Decoder();
+//                           String laimagenxd2 = String.valueOf(foto(personaO));
+//                        
+//                        
+//                        byte[] datosImagen = d.decodeBuffer(laimagenxd2);
+//                        session.setAttribute("lagranputaimagen",laimagenxd2);
                         session.setAttribute("valido", true);
                         session.setAttribute("usuario", personaO); //Para obtener atrributos de la persona que este en sesion.
                         response.sendRedirect("Vortal/jsp/principal.jsp");
@@ -121,12 +136,44 @@ public class ControllerPersonarol extends HttpServlet {
                         response.sendRedirect("Vortal/guest_cuentas/Eliminar.jsp?confir=error");
                     }
                     break;
+                case 6://mostrar profesores
+                    out.println(listadodeprofesores());
+                    break;
+                case 7://mostrar administradores
+                    out.println(listadodeadmines());
+                    break;
+
+                case 8://mostrar foto
+
+                    break;
             }
+
         } finally {
             out.close();
         }
     }
 
+//    public byte[] foto(personarolVO lapersonarolvo) throws IOException {
+//        LinkedList datos = new LinkedList();
+//        datos = lapersonarol.nombresyapellidos(lapersonarolvo);
+//        byte[] imag = null;
+//        long idProd = 0;
+//
+//        if (!datos.isEmpty()) {
+//            for (Object dato : datos) {
+//                personasVO personsVO = new personasVO();
+//                personsVO = (personasVO) dato;
+//                idProd = personsVO.getid_persona();
+//
+//            }
+//
+//            imag = lapersonarol.obtenImagenProducto(idProd);
+//
+//        }
+//
+//        return imag;
+//
+//    }
     private boolean eliminarCuenta(String elusername) {
         return lapersonaro2.eliminarCuenta(elusername);
 
@@ -167,10 +214,17 @@ public class ControllerPersonarol extends HttpServlet {
             for (Object dato : datos) {
                 personasVO personsVO = new personasVO();
                 personsVO = (personasVO) dato;
+//                double alto = personsVO.getfoto_persona().getHeight(null) / Math.ceil(personsVO.getfoto_persona().getHeight(null) / 300f);
+//                double ancho = personsVO.getfoto_persona().getWidth(null) / Math.ceil(personsVO.getfoto_persona().getWidth(null) / 320f);
+//                Icon icon = new ImageIcon(personsVO.getfoto_persona().getScaledInstance((int) ancho, (int) alto, Image.SCALE_AREA_AVERAGING));
+
                 nombrexd
                         //     += " <p class=\"centered\"><a href=\"#\"><img src=\"" + personsVO.getfoto_persona() + "  \"    class=\"img-circle\" width=\"60\"></a></p>"
-
-                        += " <p class=\"centered\"><a href=\"#\"><img src=\"https://chirimoyo.ac.uma.es/oleagen/imagenes/no-image.png\"    class=\"img-circle\" width=\"60\"></a></p>"
+                        //                        += " <p class=\"centered\"><a href=\"#\">"
+                        //                        + "<img src=\""
+                        //                        + "" + personsVO.getfoto_persona() + ""
+                        //                        + "class=\"img-circle\" width=\"60\"></a></p>"
+                        += "<input type=\"hidden\" name=\"eldoctxd\" id=\"eldoctxd\" value="+   "\"" + personsVO.getid_persona() + "\""+ ">"
                         + "<h5 class=\"centered\">" + personsVO.getsegundonombre_persona() + "  " + personsVO.getprimerapellido_persona() + "</h5>";
 
             }
@@ -180,6 +234,30 @@ public class ControllerPersonarol extends HttpServlet {
         }
 
         return nombrexd;
+    }
+
+    private byte[] fotopersona(personarolVO lapersonarolvo) throws SQLException, IOException {
+
+        LinkedList datos = new LinkedList();
+        datos = lapersonarol.nombresyapellidos(lapersonarolvo);
+        String nombrexd = "";
+        byte[] imag = null;
+
+        if (!datos.isEmpty()) {
+            for (Object dato : datos) {
+                personasVO personsVO = new personasVO();
+                personsVO = (personasVO) dato;
+                //     += " <p class=\"centered\"><a href=\"#\"><img src=\"" + personsVO.getfoto_persona() + "  \"    class=\"img-circle\" width=\"60\"></a></p>"
+                long idProd = personsVO.getid_persona();
+                imag = lapersonarol.obtenImagenProducto(idProd);
+
+            }
+
+        } else {
+            nombrexd = "pailas";
+        }
+
+        return imag;
     }
 
     private String crearcuenta(String username, String password, long idpersona, int idrol) throws SQLException {
@@ -217,6 +295,62 @@ public class ControllerPersonarol extends HttpServlet {
         } else {
             listado += "<tr>"
                     + "<td colspan=\"3\">" + "No se han encontrado registros." + "</td>"
+                    + "</tr>";
+        }
+        //mensaje para confirmar si lo va eliminar 
+
+        return listado;
+    }
+
+    private String listadodeprofesores() throws SQLException {
+        LinkedList datos = new LinkedList();
+        String listado = "";
+        datos = lapersonarol.listarprofesores();
+
+        if (!datos.isEmpty()) {
+            profesores profesorVO = new profesores();
+            for (Object dato : datos) {
+                profesorVO = (profesores) dato;
+
+                listado += "<tr>"
+                        + "<td>" + profesorVO.getId_person() + "</td>"
+                        + "<td>" + profesorVO.getPrimernombre_persona() + "</td>"
+                        + "<td>" + profesorVO.getPrimerapellido_persona() + "</td>"
+                        + "<td>" + profesorVO.getNombre_rol() + "</td>"
+                        + "<td>" + profesorVO.getNombre_grupo() + "</td>"
+                        + "<td>" + profesorVO.getId_grupo() + "</td>"
+                        + "</tr>";
+            }
+        } else {
+            listado += "<tr>"
+                    + "<td colspan=\"6\">" + "No se han encontrado registros." + "</td>"
+                    + "</tr>";
+        }
+        //mensaje para confirmar si lo va eliminar 
+
+        return listado;
+    }
+
+    private String listadodeadmines() throws SQLException {
+        LinkedList datos = new LinkedList();
+        String listado = "";
+        datos = lapersonarol.listaradmines();
+        if (!datos.isEmpty()) {
+            admine adminesVO = new admine();
+            for (Object dato : datos) {
+                adminesVO = (admine) dato;
+
+                listado += "<tr>"
+                        + "<td>" + adminesVO.getId_persona() + "</td>"
+                        + "<td>" + adminesVO.getPrimernombre_persona() + "</td>"
+                        + "<td>" + adminesVO.getPrimerapellido_persona() + "</td>"
+                        + "<td>" + adminesVO.getNombre_rol() + "</td>"
+                        + "</td>"
+                        + "</tr>";
+            }
+        } else {
+            listado += "<tr>"
+                    + "<td colspan=\"4\">" + "No se han encontrado registros." + "</td>"
                     + "</tr>";
         }
         //mensaje para confirmar si lo va eliminar 

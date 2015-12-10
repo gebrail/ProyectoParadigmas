@@ -44,7 +44,7 @@
                                         </div>
                                         <p><img src="../assets/img/113-128.png" class="img-circle" width="100"></p>
                                         <div class="row">
-                                            <a href="AsignarCurso.jsp"    <button type="button" class="btn btn-theme">Asignar Curso</button> </a>
+                                            <a href="AsignarCurso.jsp"    <button type="button" class="btn btn-theme">Asignar Curso al Estudiante</button> </a>
 
 
 
@@ -57,11 +57,11 @@
                                     <!-- WHITE PANEL - TOP USER -->
                                     <div class="white-panel pn">
                                         <div class="white-header">
-                                            <h5>Ver Estudiantes Cuyos curso estan Matriculados</h5>
+                                            <h5>Ver Estudiantes  Matriculados </h5>
                                         </div>
                                         <p><img src="../assets/img/Street-View-128.png" class="img-circle" width="100"></p>
                                         <div class="row">
-                                            <a href="Listar.jsp"    <button type="button" class="btn btn-theme">Ver</button> </a>
+                                            <a href="Listar.jsp"    <button type="button" class="btn btn-theme">Estudiantes Matriculados</button> </a>
 
                                         </div>
                                     </div>
@@ -98,7 +98,7 @@
                                         <center>
                                             <p><img src="../assets/img/14_-_Delete_user-128.png" class="img-circle" width="100"></p></center>
                                         <div class="row">
-                                            <a href="#"    <button type="button" class="btn btn-theme">Asignar</button> </a>
+                                            <a href="AsignarMaterias.jsp"    <button type="button" class="btn btn-theme">Asignar</button> </a>
 
                                         </div>
                                     </div>
@@ -112,7 +112,7 @@
                                         </div>
                                         <p><img src="../assets/img/modif.png" class="img-circle" width="100"></p>
                                         <div class="row">
-                                            <a href="#"    <button type="button" class="btn btn-theme">Modificar Materias</button> </a>
+                                            <a href="ModificarMateriaAsignada.jsp"    <button type="button" class="btn btn-theme">Modificar Materias</button> </a>
                                         </div>
                                     </div>
                                 </div>

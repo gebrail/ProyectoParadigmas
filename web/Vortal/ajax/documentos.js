@@ -54,3 +54,7 @@ function listadoTido()
     conexion.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     conexion.send("&opcion=" + 0);
 }
+
+
+
+

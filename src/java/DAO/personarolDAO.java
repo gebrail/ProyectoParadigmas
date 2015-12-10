@@ -2,17 +2,30 @@ package DAO;
 
 import Conexion.conexionDB;
 import VO.Cuentas;
+import VO.admine;
 import VO.funcionalidadVO;
 import VO.personarolVO;
 import VO.personasVO;
+import VO.profesores;
+import java.awt.Image;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.sql.Blob;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.imageio.ImageIO;
+import javax.imageio.ImageReadParam;
+import javax.imageio.ImageReader;
+import javax.imageio.stream.ImageInputStream;
 import javax.swing.JOptionPane;
+import static jdk.nashorn.internal.objects.ArrayBufferView.buffer;
 
 /**
  *
@@ -97,17 +110,102 @@ public class personarolDAO {
             rs = select.executeQuery();
             while (rs.next()) {
                 personasVO personaxdVO = new personasVO();
+                personaxdVO.setid_persona(rs.getLong("id_persona"));
                 personaxdVO.setprimernombre_persona(rs.getString("primernombre_persona"));
                 personaxdVO.setsegundonombre_persona(rs.getString("segundonombre_persona"));
                 personaxdVO.setprimerapellido_persona(rs.getString("primerapellido_persona"));
                 personaxdVO.setsegundoapellido_persona(rs.getString("segundoapellido_persona"));
-                personaxdVO.setfoto_persona(rs.getString("foto_persona"));
+//                personaxdVO.setfoto_persona(ConvertirImagen(rs.getBytes("foto_persona")));
                 datos.add(personaxdVO);
             }
             return datos;
         } catch (SQLException ex) {
             Logger.getLogger(personarolDAO.class.getName()).log(Level.SEVERE, null, ex);
             return datos;
+        } finally {
+            cn.desconectar();
+            cn.cerrarStatement(select);
+            cn.cerrarResultSet(rs);
+        }
+    }
+
+    private Image ConvertirImagen(byte[] bytes) throws IOException {
+        ByteArrayInputStream bis = new ByteArrayInputStream(bytes);
+        Iterator readers = ImageIO.getImageReadersByFormatName("jpeg");
+        ImageReader reader = (ImageReader) readers.next();
+        Object source = bis;
+        ImageInputStream iis = ImageIO.createImageInputStream(source);
+        reader.setInput(iis, true);
+        ImageReadParam param = reader.getDefaultReadParam();
+        return reader.read(0, param);
+    }
+
+//    public byte[] obtenImagenProducto(int idProducto) {
+//        conexionDB cn = null;
+//        ResultSet rs = null;
+//        PreparedStatement pr = null;
+//        byte[] buffer = null;
+//        try {
+//            Class.forName(classFor);
+//            cn = DriverManager.getConnection(, usuario, clave);
+//            String sql = "SELECT * FROM personas WHERE id_persona =?";
+//            pr = cn.prepareStatement(sql);
+//            pr.setInt(1, idProducto);
+//            rs = pr.executeQuery();
+//            while (rs.next()) {
+//                Blob bin = rs.getBlob("fotoProducto");
+//                if (bin != null) {
+//                    InputStream inStream = bin.getBinaryStream();
+//                    int size = (int) bin.length();
+//                    buffer = new byte[size];
+//                    int length = -1;
+//                    int k = 0;
+//                    try {
+//                        inStream.read(buffer, 0, size);
+//                    } catch (IOException ex) {
+//                        ex.printStackTrace();
+//                    }
+//                }
+//            }
+//        } catch (Exception ex) {
+//            return null;
+//        } finally {
+//            cn = null;
+//            rs = null;
+//            pr = null;
+//        }
+//        return buffer;
+//    }
+    public byte[] obtenImagenProducto(long idProducto) {
+        conexionDB cn = null;
+        PreparedStatement select = null;
+        ResultSet rs = null;
+        byte[] buffer = null;
+        try {
+            cn = new conexionDB();
+            select = cn.getConnection().prepareStatement("SELECT * FROM personas WHERE id_persona =? ");
+            select.setLong(1, idProducto);
+            rs = select.executeQuery();
+            while (rs.next()) {
+                Blob bin = rs.getBlob("foto_persona");
+                if (bin != null) {
+                    InputStream inStream = bin.getBinaryStream();
+                    int size = (int) bin.length();
+                    buffer = new byte[size];
+                    int length = -1;
+                    int k = 0;
+                    try {
+                        inStream.read(buffer, 0, size);
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
+                    }
+
+                }
+            }
+            return buffer;
+        } catch (SQLException ex) {
+            Logger.getLogger(personarolDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return buffer;
         } finally {
             cn.desconectar();
             cn.cerrarStatement(select);
@@ -275,4 +373,67 @@ public class personarolDAO {
             cn.cerrarStatement(delete);
         }
     }
+
+    public LinkedList listarprofesores() {
+        conexionDB cn = null;
+        PreparedStatement select = null;
+        ResultSet rs = null;
+        LinkedList datos = new LinkedList();
+        try {
+
+            cn = new conexionDB();
+            select = cn.getConnection().prepareCall("SELECT personas.id_persona,personas.primernombre_persona,personas.primerapellido_persona,rol.nombre_rol,grupo.nombre_grupo,grupo.id_grupo FROM public.personas,public.grupo,public.personarol,public.rol WHERE personas.id_persona = personarol.id_persona AND grupo.id_persona = personas.id_persona AND personarol.id_rol = rol.id_rol;");
+            rs = select.executeQuery();
+            while (rs.next()) {
+                profesores profesorVO = new profesores();
+                profesorVO.setId_person(rs.getLong("id_persona"));
+                profesorVO.setPrimernombre_persona(rs.getString("primernombre_persona"));
+                profesorVO.setPrimerapellido_persona(rs.getString("primerapellido_persona"));
+                profesorVO.setNombre_rol(rs.getString("nombre_rol"));
+                profesorVO.setNombre_grupo(rs.getString("nombre_grupo"));
+                profesorVO.setId_grupo(rs.getLong("id_grupo"));
+
+                datos.add(profesorVO);
+            }
+            return datos;
+        } catch (SQLException ex) {
+            Logger.getLogger(personarolDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return datos;
+        } finally {
+            cn.desconectar();
+            cn.cerrarStatement(select);
+            cn.cerrarResultSet(rs);
+        }
+    }
+
+    public LinkedList listaradmines() {
+        conexionDB cn = null;
+        PreparedStatement select = null;
+        ResultSet rs = null;
+        LinkedList datos = new LinkedList();
+        try {
+
+            cn = new conexionDB();
+            select = cn.getConnection().prepareCall("SELECT personas.id_persona,personas.primernombre_persona,personas.primerapellido_persona,rol.nombre_rol FROM public.personas,public.personarol,public.rol WHERE personas.id_persona = personarol.id_persona AND personarol.id_rol = rol.id_rol and rol.nombre_rol = 'Administrador';");
+            rs = select.executeQuery();
+            while (rs.next()) {
+                admine adminesVO = new admine();
+                adminesVO.setId_persona(rs.getLong("id_persona"));
+                adminesVO.setPrimernombre_persona(rs.getString("primernombre_persona"));
+                adminesVO.setPrimerapellido_persona(rs.getString("primerapellido_persona"));
+                adminesVO.setNombre_rol(rs.getString("nombre_rol"));
+
+                datos.add(adminesVO);
+            }
+            return datos;
+        } catch (SQLException ex) {
+            Logger.getLogger(personarolDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return datos;
+        } finally {
+            cn.desconectar();
+            cn.cerrarStatement(select);
+            cn.cerrarResultSet(rs);
+        }
+    }
+
 }

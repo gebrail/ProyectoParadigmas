@@ -49,17 +49,7 @@
         </div>
         <script src="assets/js/jquery.js"></script>
         <script src="assets/js/bootstrap.min.js"></script>
-    <center>
-        <video id="example_video_1" class="video-js vjs-default-skin" controls preload="none" width="600" height="400"
-               poster="img/micu01-425376.jpeg"
-               data-setup="{}">
-            <source src="img/y.mp4" type='video/mp4' />
 
-            <track kind="captions" src="demo.captions.vtt" srclang="en" label="English"></track><!-- Tracks need an ending tag thanks to IE9 -->
-            <track kind="subtitles" src="demo.captions.vtt" srclang="en" label="English"></track><!-- Tracks need an ending tag thanks to IE9 -->
-            <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p>
-        </video>
-    </center>
     <!--BACKSTRETCH-->
     <!-- You can use an image of whatever size. This script will stretch to fit in any screen size.-->
 
@@ -67,7 +57,7 @@
 
     <script type="text/javascript" src="assets/js/jquery.backstretch.min.js"></script>
     <script>
-                        $.backstretch("img/438764.png", {speed: 500});
+                        $.backstretch("img/fondo.jpg", {speed: 500});
     </script>
 
 

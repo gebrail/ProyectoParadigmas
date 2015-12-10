@@ -7,7 +7,9 @@ package DAO;
 
 import Conexion.conexionDB;
 import VO.cursoVO;
+import VO.grupo;
 import VO.materiaVO;
+import VO.materiaestudiantesVO;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -206,6 +208,130 @@ public class materiaDAO {
         } finally {
             cn.desconectar();
             cn.cerrarStatement(delete);
+        }
+    }
+
+    public LinkedList consultargruposdelamateria(long materia) {
+        conexionDB cn = null;
+        PreparedStatement select = null;
+        ResultSet rs = null;
+        LinkedList datos = new LinkedList();
+
+        try {
+            cn = new conexionDB();
+            select = cn.getConnection().prepareStatement("SELECT * FROM grupo WHERE codigo_materia=? ;");
+            select.setLong(1, materia);
+            rs = select.executeQuery();
+            while (rs.next()) {
+                grupo elgrupoVO = new grupo();
+                elgrupoVO.setId_grupo(rs.getLong("id_grupo"));
+                elgrupoVO.setCodigo_materia(rs.getLong("codigo_materia"));
+                elgrupoVO.setId_persona(rs.getLong("id_persona"));
+                elgrupoVO.setNombre_grupo(rs.getString("nombre_grupo"));
+                elgrupoVO.setDescripccion(rs.getString("descripccion"));
+                datos.add(elgrupoVO);
+
+            }
+            return datos;
+        } catch (SQLException ex) {
+            Logger.getLogger(materiaDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return datos;
+        } finally {
+            cn.desconectar();
+            cn.cerrarStatement(select);
+            cn.cerrarResultSet(rs);
+        }
+    }
+
+    public LinkedList consultargruposdelamateriadelestudiante(long materia, long idper) {
+        conexionDB cn = null;
+        PreparedStatement select = null;
+        ResultSet rs = null;
+        LinkedList datos = new LinkedList();
+
+        try {
+            cn = new conexionDB();
+            select = cn.getConnection().prepareStatement("SELECT mt.* FROM public.grupo,public.materiaestudiantes as mt WHERE grupo.id_grupo = mt.id_grupo and grupo.codigo_materia = ? and mt.id_persona =?;");
+            select.setLong(1, materia);
+            select.setLong(2, idper);
+            rs = select.executeQuery();
+            while (rs.next()) {
+                materiaestudiantesVO mta = new materiaestudiantesVO();
+                mta.setId_grupo(rs.getLong("id_grupo"));
+                mta.setId_persona(rs.getLong("id_persona"));
+                datos.add(mta);
+
+            }
+            return datos;
+        } catch (SQLException ex) {
+            Logger.getLogger(materiaDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return datos;
+        } finally {
+            cn.desconectar();
+            cn.cerrarStatement(select);
+            cn.cerrarResultSet(rs);
+        }
+    }
+
+    public materiaestudiantesVO consultaIndividualMateriaestudiantes(long idgrupo, long idpersona) {
+
+        conexionDB cn = null;
+        PreparedStatement select = null;
+        ResultSet rs = null;
+        try {
+            cn = new conexionDB();
+            materiaestudiantesVO matVO = new materiaestudiantesVO();
+            select = cn.getConnection().prepareStatement("SELECT * FROM materiaestudiantes where materiaestudiantes.id_grupo= ? and materiaestudiantes.id_persona =?; ");
+            select.setLong(1, idgrupo);
+            select.setLong(2, idpersona);
+            rs = select.executeQuery();
+            if (rs.next()) {
+                matVO.setNota1(rs.getDouble("nota1"));
+                matVO.setNota2(rs.getDouble("nota2"));
+                matVO.setNota3(rs.getDouble("nota3"));
+             matVO.setId_persona(rs.getLong("id_persona"));
+             matVO.setId_grupo(rs.getLong("id_grupo"));
+            }
+            return matVO;
+        } catch (SQLException ex) {
+            Logger.getLogger(materiaDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        } finally {
+            cn.desconectar();
+            cn.cerrarStatement(select);
+            cn.cerrarResultSet(rs);
+        }
+    }
+    
+    
+     public LinkedList consultargruposdelamateriaest(long materia, long idper) {
+        conexionDB cn = null;
+        PreparedStatement select = null;
+        ResultSet rs = null;
+        LinkedList datos = new LinkedList();
+
+        try {
+            cn = new conexionDB();
+            select = cn.getConnection().prepareStatement("SELECT materiaestudiantes.* FROM public.materiaestudiantes, public.grupo WHERE materiaestudiantes.id_grupo = grupo.id_grupo and materiaestudiantes.id_persona=? and grupo.codigo_materia=?;");
+            select.setLong(1, idper);
+            select.setLong(2, materia);
+            rs = select.executeQuery();
+            while (rs.next()) {
+                materiaestudiantesVO xd = new materiaestudiantesVO();
+                xd.setId_grupo(rs.getLong("id_grupo"));
+                xd.setId_persona(rs.getLong("id_persona"));
+                
+                datos.add(xd);
+
+            }
+            return datos;
+        } catch (SQLException ex) {
+            Logger.getLogger(materiaDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return datos;
+        } finally {
+            cn.desconectar();
+            cn.cerrarStatement(select);
+            cn.cerrarResultSet(rs);
         }
     }
 

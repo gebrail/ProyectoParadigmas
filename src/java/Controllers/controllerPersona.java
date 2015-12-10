@@ -9,6 +9,7 @@ import DAO.personasDAO;
 import VO.personasVO;
 import VO.tipodedocumentoVO;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
 import java.sql.Date;
 
@@ -21,6 +22,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.Part;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -72,6 +75,7 @@ public class controllerPersona extends HttpServlet {
                     String correo = request.getParameter("correo");
                     String estadocivil = request.getParameter("estadocivil");
                     Date fechadenacimiento = Date.valueOf(request.getParameter("fechanacimiento"));
+
                     response.sendRedirect("Vortal/guest_persona/Registrar.jsp?confir=" + registrarPersona(idpersona, tipodocumento, primernombre, segundonombre, primerapellido, segundoapellido, genero, direccion, telefono, correo, estadocivil, fechadenacimiento));
 //                    
                     break;
@@ -133,10 +137,29 @@ public class controllerPersona extends HttpServlet {
                 case 7://BUSCARdocuentos
                     out.println(tipodocumentos());
                     break;
+                case 8://Documentos Solo de Estudiantes
+                    out.println(documentosestudiante());
+                    break;
             }
         } finally {
             out.close();
         }
+    }
+
+    private String documentosestudiante() throws SQLException {
+        String opcion = "";
+        LinkedList datos = new LinkedList();
+        datos = personaAO.listardocumentosestudiantes();
+        if (!datos.isEmpty()) {
+            personasVO tidoVO = new personasVO();
+            for (Object dato : datos) {
+                tidoVO = (personasVO) dato;
+                opcion += "<option value=\"" + tidoVO.getid_persona() + "\">" + tidoVO.getid_persona() + "</option>";
+            }
+        } else {
+            opcion += "<option>No hay Datos Error!</option>";
+        }
+        return opcion;
     }
 
     private String documentos() throws SQLException {
@@ -382,7 +405,6 @@ public class controllerPersona extends HttpServlet {
             formulario += "<option value=\"Soltero\">Soltero</option>"
                     + "<option value=\"Casado\">Casado</option>";
         }
-
 
         formulario += "</select>"
                 + "</div>"

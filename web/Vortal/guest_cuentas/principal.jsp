@@ -112,7 +112,7 @@
                                         </div>
                                         <p><img src="../assets/img/ttt.png" class="img-circle" width="100"></p>
                                         <div class="row">
-                                            <a href="#"    <button type="button" class="btn btn-theme">Listar</button> </a>
+                                            <a href="Listarpr.jsp"    <button type="button" class="btn btn-theme">Listar profesores</button> </a>
 
                                         </div>
                                     </div>
@@ -126,7 +126,7 @@
                                         </div>
                                         <p><img src="../assets/img/icon_chemist-128.png" class="img-circle" width="100"></p>
                                         <div class="row">
-                                            <a href="#"    <button type="button" class="btn btn-theme">Listar Administradores</button> </a>
+                                            <a href="Listarad.jsp"    <button type="button" class="btn btn-theme">Listar Administradores</button> </a>
 
                                         </div>
                                     </div>

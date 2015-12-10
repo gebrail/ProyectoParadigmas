@@ -6,9 +6,7 @@
 package Controllers;
 
 import DAO.aulaDAO;
-import DAO.materiaDAO;
 import VO.aulaVO;
-import VO.materiaVO;
 import VO.tipoaulaVO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -264,7 +262,6 @@ public class controllerAula extends HttpServlet {
                 + "<div class=\"form-group\">"
                 + "<label>Nombre del aula</label>"
                 + "<input type=\"text\" class=\"form-control\" id=\"nombreaula\" name=\"nombreaula\" placeholder=\"Digita el o modifica el nombre\" value=\"" + rlVO.getNombre_aula() + "\" required>"
-                + "</div>"
                 + "</div>"
                 + "<div class=\"form-group\">"
                 + "<label>Id del Tipo del Salon</label>"

@@ -5,7 +5,6 @@ import DAO.cursopersonaDAO;
 import DAO.materiaDAO;
 import VO.cursoVO;
 import VO.cursopersonaVO;
-import VO.materiaVO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -149,14 +148,48 @@ public class controllerCursopersona extends HttpServlet {
         String x = "";
         datos = percur.listarpersonascursos();
         if (!datos.isEmpty()) {
+            
+            
+            
+            
+            
             cursopersonaVO curVO = new cursopersonaVO();
             for (Object dato : datos) {
+                
+                
                 curVO = (cursopersonaVO) dato;
-                listado += "<tr>"
-                        + "<td>" + curVO.getid_curso() + "</td>"
-                        + "<td>" + curVO.getid_persona() + "</td>"
-                        + "</tr>";
+                LinkedList xd2 = new LinkedList();
+                
+                
+                
+                xd2 = elcursoxd.listarcursos();
+                if (!xd2.isEmpty()) {
+                    cursoVO cursVO = new cursoVO();
+                    for (Object xd3 : xd2) {
+                        cursVO = (cursoVO) xd3;
+                        if (cursVO.getid_curso() == curVO.getid_curso()) {
+                            listado += "<tr>"
+                                    + "<td>" + cursVO.getnombre_curso() + "</td>"
+                                    + "<td>" + curVO.getid_persona() + "</td>"
+                                    + "</tr>";
+                        }
+                    }
+                }
+                
+                
+                
+                
+                
+
             }
+            
+            
+            
+            
+            
+            
+            
+            
         } else {
             listado += "<tr>"
                     + "<td colspan=\"3\">" + "No se han encontrado registros." + "</td>"

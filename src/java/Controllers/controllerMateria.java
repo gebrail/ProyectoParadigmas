@@ -7,7 +7,6 @@
 package Controllers;
 
 import DAO.materiaDAO;
-import VO.cursoVO;
 import VO.materiaVO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -85,7 +84,7 @@ public class controllerMateria extends HttpServlet {
                         recVO.setdescripcion(request.getParameter("descripcionmateria"));
                         boolean respuestaModificar = (boolean) lamateriaxd.modificarMateria(recVO);
                         if (respuestaModificar) {
-                            session.removeAttribute("cursoChange");
+                            session.removeAttribute("materiaChange");
                             response.sendRedirect("Vortal/guest_materias/Modificar.jsp?confir=modificado");
                         } else {
                             response.sendRedirect("Vortal/guest_materias/Modificar.jsp?confir=error");
@@ -226,7 +225,6 @@ public class controllerMateria extends HttpServlet {
                 + "<div class=\"form-group\">"
                 + "<label>Nombre de  la materia</label>"
                 + "<input type=\"text\" class=\"form-control\" id=\"nombremateria\" name=\"nombremateria\" placeholder=\"Digita el o modifica el nombre\" value=\"" + rlVO.getnombre_materia() + "\" required>"
-                + "</div>"
                 + "</div>"
                 + "<div class=\"form-group\">"
                 + "<label>Descripcion de la materia</label>"

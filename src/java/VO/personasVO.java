@@ -1,4 +1,6 @@
-package VO;import java.sql.Date;
+package VO;import java.awt.Image;
+import java.io.InputStream;
+import java.sql.Date;
 
 
 public class personasVO {
@@ -9,7 +11,7 @@ public class personasVO {
 	private String segundonombre_persona;
 	private String primerapellido_persona;
 	private String segundoapellido_persona;
-	private String foto_persona;
+	private InputStream  foto_persona;
 	private String genero_persona;
 	private String direccion_persona;
 	private long telefono_persona;
@@ -65,11 +67,11 @@ public class personasVO {
 		this.segundoapellido_persona=segundoapellido_persona;
 	}
 
-	public String getfoto_persona() {
+	public InputStream getfoto_persona() {
 		return this.foto_persona;
 	}
 
-	public void setfoto_persona(String foto_persona) {
+    public void setfoto_persona(InputStream foto_persona) {
 		this.foto_persona=foto_persona;
 	}
 

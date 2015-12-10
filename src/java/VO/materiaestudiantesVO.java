@@ -2,59 +2,60 @@ package VO;
 
 public class materiaestudiantesVO {
 
-    private int id_persona;
-    private int codigo_materia;
+    public long getId_grupo() {
+        return id_grupo;
+    }
+
+    public void setId_grupo(long id_grupo) {
+        this.id_grupo = id_grupo;
+    }
+
+    public long getId_persona() {
+        return id_persona;
+    }
+
+    public void setId_persona(long id_persona) {
+        this.id_persona = id_persona;
+    }
+
+    public double getNota1() {
+        return nota1;
+    }
+
+    public void setNota1(double nota1) {
+        this.nota1 = nota1;
+    }
+
+    public double getNota2() {
+        return nota2;
+    }
+
+    public void setNota2(double nota2) {
+        this.nota2 = nota2;
+    }
+
+    public double getNota3() {
+        return nota3;
+    }
+
+    public void setNota3(double nota3) {
+        this.nota3 = nota3;
+    }
+
+    public boolean isAprobacion() {
+        return aprobacion;
+    }
+
+    public void setAprobacion(boolean aprobacion) {
+        this.aprobacion = aprobacion;
+    }
+
+    private long id_grupo;
+    private long id_persona;
     private double nota1;
     private double nota2;
     private double nota3;
     private boolean aprobacion;
 
-    public int getid_persona() {
-        return this.id_persona;
-    }
-
-    public void setid_persona(int id_persona) {
-        this.id_persona = id_persona;
-    }
-
-    public int getcodigo_materia() {
-        return this.codigo_materia;
-    }
-
-    public void setcodigo_materia(int codigo_materia) {
-        this.codigo_materia = codigo_materia;
-    }
-
-    public double getnota1() {
-        return this.nota1;
-    }
-
-    public void setnota1(double nota1) {
-        this.nota1 = nota1;
-    }
-
-    public double getnota2() {
-        return this.nota2;
-    }
-
-    public void setnota2(double nota2) {
-        this.nota2 = nota2;
-    }
-
-    public double getnota3() {
-        return this.nota3;
-    }
-
-    public void setnota3(double nota3) {
-        this.nota3 = nota3;
-    }
-
-    public boolean getaprobacion() {
-        return this.aprobacion;
-    }
-
-    public void setaprobacion(boolean aprobacion) {
-        this.aprobacion = aprobacion;
-    }
 
 }

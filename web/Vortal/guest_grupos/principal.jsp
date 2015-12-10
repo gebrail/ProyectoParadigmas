@@ -9,7 +9,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Principal De Estudiantes</title>
+        <title>Principal De Grupos</title>
         <%@include file="../jsp/head.html"%>
     </head>
     <body>
@@ -32,7 +32,7 @@
             <section id="main-content"> 
 
                 <section class="wrapper site-min-height">
-                    <h3><i class="fa fa-angle-right"></i> Academico-Profesor Notas</h3>
+                    <h3><i class="fa fa-angle-right"></i> Gestion De Grupos</h3>
                     <div class="row mt">
                         <div class="col-lg-12">
                             <div class="row">
@@ -41,11 +41,14 @@
                                     <!-- WHITE PANEL - TOP USER -->
                                     <div class="white-panel pn">
                                         <div class="white-header">
-                                            <h5>Ingresar Nota Al Estudiante</h5>
+                                            <h5>Registrar Grupo</h5>
                                         </div>
-                                        <p><img src="../assets/img/Cert.png" class="img-circle" width="100"></p>
+                                        <p><img src="../assets/img/group_data.png" class="img-circle" width="100"></p>
                                         <div class="row">
-                                            <a href="RegistrarNota.jsp"    <button type="button" class="btn btn-theme">Ingresar notas</button> </a>
+                                            <a href="Registrar.jsp"    <button type="button" class="btn btn-theme">Registrar Grupos</button> </a>
+
+
+
                                         </div>
                                     </div>
                                 </div><!-- /col-md-4 -->
@@ -54,17 +57,68 @@
                                     <!-- WHITE PANEL - TOP USER -->
                                     <div class="white-panel pn">
                                         <div class="white-header">
-                                            <h5>Informacion General</h5>
+                                            <h5>Listado de grupos</h5>
                                         </div>
-                                        <p><img src="../assets/img/info_2-128.png" class="img-circle" width="100"></p>
+                                        <p><img src="../assets/img/address_book.png" class="img-circle" width="100"></p>
                                         <div class="row">
-                                            <a href="#"    <button type="button" class="btn btn-theme">Ver Informacion</button> </a>
+                                            <a href="Listar.jsp"    <button type="button" class="btn btn-theme">Listado total de grupos</button> </a>
+
+                                        </div>
+                                    </div>
+                                </div><!-- /col-md-4 -->
+
+                                <div class="col-lg-4 col-md-4 col-sm-4 mb">
+                                    <!-- WHITE PANEL - TOP USER -->
+                                    <div class="white-panel pn">
+                                        <div class="white-header">
+                                            <h5>Modificar grupos</h5>
+                                        </div>
+                                        <p><img src="../assets/img/dedicated_server.png" class="img-circle" width="100"></p>
+                                        <div class="row">
+                                            <a href="Modificar.jsp"    <button type="button" class="btn btn-theme">Modificar grupos</button> </a>
 
 
                                         </div>
                                     </div>
                                 </div><!-- /col-md-4 -->
                             </div>
+                            <div class="row">
+
+
+                                <div class="col-lg-4 col-md-4 col-sm-4 mb">
+                                    <!-- WHITE PANEL - TOP USER -->
+                                    <div class="white-panel pn">
+
+                                     
+
+
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-4 col-md-4 col-sm-4 mb">
+                                    <!-- WHITE PANEL - TOP USER -->
+                                    <div class="white-panel pn">
+                                        <div class="white-header">
+                                            <h5>Eliminar Grupos</h5>
+                                        </div>
+                                        <p><img src="../assets/img/database.png" class="img-circle" width="100"></p>
+                                        <div class="row">
+                                            <a href="Eliminar.jsp"    <button type="button" class="btn btn-theme">Eliminar grupos</button> </a>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                   <div class="col-lg-4 col-md-4 col-sm-4 mb">
+                                    <!-- WHITE PANEL - TOP USER -->
+                                    <div class="white-panel pn">
+                                      
+                                    </div>
+                                </div>
+
+
+                            </div>
+
                         </div>
                     </div>
 

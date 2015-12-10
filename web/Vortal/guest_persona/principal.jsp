@@ -45,7 +45,7 @@
                                         </div>
                                         <p><img src="../assets/img/crear.png" class="img-circle" width="100"></p>
                                         <div class="row">
-                                            <a href="Registrar.jsp"    <button type="button" class="btn btn-theme">Crear Cuenta</button> </a>
+                                            <a href="Registrar.jsp"    <button type="button" class="btn btn-theme">Registrar Persona</button> </a>
 
 
 

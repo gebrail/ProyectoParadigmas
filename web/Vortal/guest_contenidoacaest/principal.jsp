@@ -48,7 +48,7 @@
                                         </div>
                                         <p><img src="../assets/img/l.png" class="img-circle" width="100"></p>
                                         <div class="row">
-                                            <a href="#"    <button type="button" class="btn btn-theme">Ver notas</button> </a>
+                                            <a href="VerNotas.jsp"    <button type="button" class="btn btn-theme">Ver notas</button> </a>
 
 
 
@@ -56,19 +56,7 @@
                                     </div>
                                 </div><!-- /col-md-4 -->
 
-                                <div class="col-lg-4 col-md-4 col-sm-4 mb">
-                                    <!-- WHITE PANEL - TOP USER -->
-                                    <div class="white-panel pn">
-                                        <div class="white-header">
-                                            <h5>Ver Materias Asignadas</h5>
-                                        </div>
-                                        <p><img src="../assets/img/books-128.png" class="img-circle" width="100"></p>
-                                        <div class="row">
-                                            <a href="#"    <button type="button" class="btn btn-theme">Ver Materias General</button> </a>
-
-                                        </div>
-                                    </div>
-                                </div><!-- /col-md-4 -->
+                            <!-- /col-md-4 -->
 
                                 <div class="col-lg-4 col-md-4 col-sm-4 mb">
                                     <!-- WHITE PANEL - TOP USER -->
