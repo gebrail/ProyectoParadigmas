@@ -18,9 +18,9 @@ import java.util.logging.Logger;
  */
 public class conexionDB {
 
-    private String login = "postgres";
+    private String login = "wilson";
     private String password = "tik0dcmg";
-    private String url = "jdbc:postgresql://localhost:5432/School";
+    private String url = "jdbc:postgresql://localhost:5432/school";
     private Connection conn;
 
     /*

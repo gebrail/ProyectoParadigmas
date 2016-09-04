@@ -26,8 +26,6 @@ import javax.servlet.http.HttpSession;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
-import sun.misc.BASE64Decoder;
-import sun.net.www.content.image.png;
 
 /**
  *
